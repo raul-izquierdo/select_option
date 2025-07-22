@@ -97,7 +97,7 @@ class OptionsArea {
     }
 
     private int printNoOptions() {
-        printFullLine(Colours.addColor("No options match your filter. You are really stupid", Colours.COLOR_RED));
+        printFullLine(Colours.addColor("No options match your filter", Colours.COLOR_RED));
         return 1;
     }
 

@@ -1,51 +1,70 @@
-# show_solutions
+# select_option
 
-This Java application automates the creation of GitHub teams and the assignment of students to those teams based on a CSV roster exported from GitHub Classroom.
+## Overview
 
-<!-- TODO: 📅 /**/ Uptade este doc -->
+This project provides a simple way to display a list of options to the user and allow them to select one interactively from the console. The core functionality is provided by the method `OptionsSelector.showOptions`, which is designed to work with lists of strings representing the available options.
 
+## The method OptionsSelector.showOptions
 
-## Features
+### Purpose
+`OptionsSelector.showOptions` displays a list of options in the console and prompts the user to select one. It returns the index of the selected option.
 
-The main functionalities of this application include:
-- Reads a CSV file with student identifiers and GitHub usernames.
-- Creates GitHub teams based on the group code in the identifier.
-- Adds students to their corresponding teams.
-- Safe handling of GitHub API tokens (supports command-line, environment variable, or .env file).
+### Usage
+```java
+List<String> options = Arrays.asList("Option 1", "Option 2", "Option 3");
 
-## Usage
+int selectedIndex = OptionsSelector.showOptions(options);
 
-The jar can be downloaded from the [releases page](https://github.com/raul-izquierdo/show_solutions/releases).
-
-```bash
-java -jar show_solutions.jar <csv_file> -o <organization> -t <token>
+System.out.println("You selected: " + options.get(selectedIndex));
 ```
 
-### CSV File Format
+### How Options Are Presented
 
-The csv file is just the csv file exported from GitHub Classroom. For example, it can look like this:
+When `OptionsSelector.showOptions` is executed, the user sees a prompt at the top of the console:
 
-```csv
-"identifier","github_username","github_id","name"
-"01-perez perez mariano","yaagma","",""
-"02-gonzalez peon eduardo","edu23","",""
+```
+(type to filter or use arrows ↑/↓): <your filter text>
 ```
 
-The only required columns are the first two: `identifier` and `github_username`.
+Below the prompt, the options are displayed interactively:
+- The currently selected option is highlighted and marked with a `> ` prefix.
+- As the user types, the list is filtered in real time to show only matching options (case and accent insensitive).
+- The user can use the up/down arrow keys to move the selection.
+- The matching part of each option is visually highlighted.
 
-The `identifier`, when the roster was created, it should have followed the format: `<group_id>-<name>` (e.g., `01-perez perez mariano`). This is the most important part as it determines the team creation and student assignment.
 
-The teams are created based on the first two digits of the identifiers. For example, if there is an identifier `01-perez perez mariano`, a team named `G01` will be created, and every student with an identifier starting with `01-` will be added to this team.
+Example display (no filter):
+```
+(type to filter or use arrows ↑/↓):
+> 01. Temperatura y Videoclub
+  02. Intérprete
+  03. Editor I
+  04. Validaciones
+  05. Editor II. Undo
+  06. Mapa
+  07. Encriptar
+  08. Encuestas
+  09. Visitor
+  10. Comparativa de Patrones
+  11. Simulacro de Examen
+  12. JHotDraw
+  XX. Iterator
+```
 
+Example display (with filter "edi"):
+```
+(type to filter or use arrows ↑/↓): edi
+> 05. Editor II. Undo
+  03. Editor I
+```
 
-## The Token
-
-You can provide the GitHub API token in three ways (in order of precedence):
-1. As a command-line argument: `-t <token>`
-2. In a `.env` file
-3. As an environment variable: `GITHUB_TOKEN`
+If the user presses the down arrow key, the selection moves down:
+```
+(type to filter or use arrows ↑/↓): edi
+  05. Editor II. Undo
+> 03. Editor I
+```
 
 
 ## License
-
-MIT
+See LICENSE file for details.

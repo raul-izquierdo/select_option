@@ -45,24 +45,21 @@ Example display (no filter):
   07. Encriptar
   08. Encuestas
   09. Visitor
-  10. Comparativa de Patrones
-  11. Simulacro de Examen
   12. JHotDraw
-  XX. Iterator
 ```
 
 Example display (with filter "edi"):
 ```
 (type to filter or use arrows ↑/↓): edi
-> 05. Editor II. Undo
-  03. Editor I
+> 03. Editor I
+  05. Editor II. Undo
 ```
 
 If the user presses the down arrow key, the selection moves down:
 ```
 (type to filter or use arrows ↑/↓): edi
-  05. Editor II. Undo
-> 03. Editor I
+  03. Editor I
+> 05. Editor II. Undo
 ```
 
 

@@ -36,14 +36,11 @@ Below the prompt, the options are displayed interactively:
 Example display (no filter):
 ```
 (type to filter or use arrows ↑/↓):
-> 01. Temperatura y Videoclub
-  02. Intérprete
+> 01. Temperature
   03. Editor I
-  04. Validaciones
+  04. Validations
   05. Editor II. Undo
-  06. Mapa
-  07. Encriptar
-  08. Encuestas
+  07. Encrypt
   09. Visitor
   12. JHotDraw
 ```

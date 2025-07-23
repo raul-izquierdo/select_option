@@ -87,30 +87,22 @@ public class OptionsSelector {
     // Expects the cursor to be at the prompt line and leaves it there
     private static void draw(Terminal terminal, OptionsArea optionsArea) {
 
-        printPrompt(terminal, optionsArea.getFilter());
+        Cursor.hide(terminal); // Hide the cursor to avoid flickering
 
-        // Print options. Print the first option in the current line.
-        // At exit, the cursor will be in the same position as it was before the call (it is restored)
-        optionsArea.draw();
+        // Estamos en la fila del prompt, así que hay que bajar para ponerse en la línea de la primera opción
+        Cursor.goDown(terminal);
 
-        Cursor.moveUp(terminal); // Go back to the prompt line
-        int column = PROMPT.length() + optionsArea.getFilter().length() + 1; // 1-based column
-        Cursor.goToColumn(terminal, column); // Move cursor to the end of the filter input
-    }
+        optionsArea.draw(); // Nos deja de nuevo en la línea de la primera opción
 
-    // Expects the cursor to be at the prompt line and leaves it at the next line (the line for the first option).
-    private static void printPrompt(Terminal terminal, String filter) {
-        Cursor.goToFirstColumn(terminal);
-        terminal.writer().print(PROMPT + addColor(filter, Colours.COLOR_HIGHLIGHT));
+        Cursor.moveUp(terminal); // Volvemos a la línea del prompt
+
+        terminal.writer().print(PROMPT + addColor(optionsArea.getFilter(), Colours.COLOR_HIGHLIGHT));
         Cursor.clearRestOfLine(terminal);
-        Cursor.printNewLine(terminal);
+
+        Cursor.show(terminal);
+
     }
 
-    // private static void finalDraw(Terminal terminal, OptionsArea optionsArea) {
-    //     printPrompt(terminal, optionsArea.getFilter());
-    //     optionsArea.clearAllOptions();
-    //     terminal.writer().println("> " + addColor(optionsArea.getSelectedOption(), OptionsArea.COLOR_HIGHLIGHT));
-    // }
     private static void finalDraw(Terminal terminal, OptionsArea optionsArea) {
         Cursor.goToFirstColumn(terminal); // Move cursor to the start of the prompt line
         Cursor.clearRestOfLine(terminal); // Delete the prompt line

@@ -1,3 +1,4 @@
+
 package es.uniovi.eii.ds.options;
 
 import org.jline.terminal.Terminal;
@@ -12,8 +13,7 @@ public class Cursor {
     }
 
     public static void printNewLine(Terminal terminal) {
-        terminal.writer().print(System.lineSeparator());
-        terminal.flush();
+        writeAndFlush(terminal, System.lineSeparator());
     }
 
     // Moves the cursor to the first column of the current line
@@ -38,8 +38,27 @@ public class Cursor {
             moveUp(terminal);
     }
 
+    public static void goDown(Terminal terminal) {
+        terminal.puts(cursor_down);
+        // terminal.flush();
+    }
+
+    public static void hide(Terminal terminal) {
+        writeAndFlush(terminal, "\033[?25l");
+    }
+
+    public static void show(Terminal terminal) {
+        writeAndFlush(terminal, "\033[?25h");
+    }
+
     private static void writeAndFlush(Terminal terminal, Capability capability) {
         terminal.puts(capability);
         terminal.flush();
+    }
+
+    // Overloaded for ANSI escape codes
+    private static void writeAndFlush(Terminal terminal, String ansiCode) {
+        terminal.writer().print(ansiCode);
+        terminal.writer().flush();
     }
 }

@@ -7,6 +7,12 @@ import java.util.*;
 
 import org.jline.terminal.*;
 
+/**
+ * Utility class for displaying and selecting options in the terminal with filtering and navigation support.
+ * Provides a static method to show a list of options, allowing the user to filter by typing and navigate using arrow keys.
+ *
+ * @author Raúl Izquierdo (raul@uniovi.es)
+ */
 public class OptionsSelector {
     private static final String PROMPT = "(type to filter or use arrows ↑/↓): ";
 

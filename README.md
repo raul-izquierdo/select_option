@@ -62,3 +62,5 @@ If the user presses the down arrow key, the selection moves down:
 
 ## License
 See LICENSE file for details.
+
+Raúl Izquierdo Castanedo (raul@uniovi.es)

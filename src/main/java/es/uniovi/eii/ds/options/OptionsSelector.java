@@ -91,27 +91,27 @@ public class OptionsSelector {
 
         // Estamos en la fila del prompt, así que hay que bajar para ponerse en la línea de la primera opción
         Cursor.goDown(terminal);
-
-        optionsArea.draw(); // Nos deja de nuevo en la línea de la primera opción
+        optionsArea.draw(); // Al salir, el cursor seguirá en la línea de la primera opción
 
         Cursor.moveUp(terminal); // Volvemos a la línea del prompt
-
         terminal.writer().print(PROMPT + addColor(optionsArea.getFilter(), Colours.COLOR_HIGHLIGHT));
         Cursor.clearRestOfLine(terminal);
 
         Cursor.show(terminal);
-
     }
 
+    // Borra el prompt y las opciones, dejando sólo impresa la opción seleccionada
     private static void finalDraw(Terminal terminal, OptionsArea optionsArea) {
+
+        // Overwrite the prompt line with the selected option
         Cursor.goToFirstColumn(terminal); // Move cursor to the start of the prompt line
+        terminal.writer().print("> " + addColor(optionsArea.getSelectedOption(), Colours.COLOR_HIGHLIGHT));
         Cursor.clearRestOfLine(terminal); // Delete the prompt line
 
+        // Delete options area
         Cursor.printNewLine(terminal); // Go to the first option line
-        optionsArea.clearAllOptions(); // Delete the options
+        optionsArea.clearAllOptions();
 
-        Cursor.moveUp(terminal); // Move cursor back to the prompt line
-        terminal.writer().println("> " + addColor(optionsArea.getSelectedOption(), Colours.COLOR_HIGHLIGHT));
     }
 
 }
